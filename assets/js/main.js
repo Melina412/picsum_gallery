@@ -1,6 +1,7 @@
 let page_number = 1;
 
 const fetchPageData = () => {
+  // link mit variabler page number
   let fetch_link = `https://picsum.photos/v2/list?page=${page_number}&limit=30`;
 
   fetch(fetch_link)
@@ -39,6 +40,9 @@ const fetchPageData = () => {
         // * fügt die erstellten divs ins html ein
         document.querySelector(".gallery").appendChild(gallery_item);
       });
+    })
+    .catch((error) => {
+      console.error("error", error);
     });
 };
 fetchPageData();
