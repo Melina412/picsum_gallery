@@ -1,37 +1,51 @@
-fetch("https://picsum.photos/v2/list")
-  .then((response) => response.json())
-  .then((data) => {
-    console.log(data);
+let page_number = 1;
 
-    data.forEach((item) => {
-      let id = item.id;
-      let img = item.download_url;
-      let author = item.author;
-      let info = item.url;
+const fetchPageData = () => {
+  let fetch_link = `https://picsum.photos/v2/list?page=${page_number}&limit=30`;
 
-      let gallery_item = document.createElement("div");
+  fetch(fetch_link)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
 
-      // * image
-      let image = document.createElement("img");
-      image.setAttribute("src", img);
-      image.setAttribute("alt", `picsum img id: ${id}`);
-      gallery_item.appendChild(image);
+      data.forEach((item) => {
+        let id = item.id;
+        let img = item.download_url;
+        let author = item.author;
+        let info = item.url;
 
-      // * author
-      let img_author = document.createElement("p");
-      img_author.textContent = author;
-      gallery_item.appendChild(img_author);
+        let gallery_item = document.createElement("div");
 
-      // * button
-      let see_more = document.createElement("button");
-      see_more.textContent = "See more";
+        // * image
+        let image = document.createElement("img");
+        image.setAttribute("src", img);
+        image.setAttribute("alt", `picsum img id: ${id}`);
+        gallery_item.appendChild(image);
 
-      see_more.addEventListener("click", () => {
-        window.open(info);
+        // * author
+        let img_author = document.createElement("p");
+        img_author.textContent = author;
+        gallery_item.appendChild(img_author);
+
+        // * button
+        let see_more = document.createElement("button");
+        see_more.textContent = "See more";
+
+        see_more.addEventListener("click", () => {
+          window.open(info);
+        });
+        gallery_item.appendChild(see_more);
+
+        // * fügt die erstellten divs ins html ein
+        document.querySelector(".gallery").appendChild(gallery_item);
       });
-      gallery_item.appendChild(see_more);
-
-      // * fügt die erstellten divs ins html ein
-      document.querySelector(".gallery").appendChild(gallery_item);
     });
-  });
+};
+fetchPageData();
+
+// * laden der nächsten seite
+next.addEventListener("click", () => {
+  page_number++;
+  console.log("klicktest");
+  fetchPageData();
+});
