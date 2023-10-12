@@ -6,7 +6,7 @@ const fetchPageData = () => {
   fetch(fetch_link)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      //   console.log(data);
 
       data.forEach((item) => {
         let id = item.id;
@@ -46,6 +46,5 @@ fetchPageData();
 // * laden der nächsten seite
 next.addEventListener("click", () => {
   page_number++;
-  console.log("klicktest");
   fetchPageData();
 });
