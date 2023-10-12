@@ -14,7 +14,7 @@ fetch("https://picsum.photos/v2/list")
       // * image
       let image = document.createElement("img");
       image.setAttribute("src", img);
-      image.setAttribute("alt", "#");
+      image.setAttribute("alt", `picsum img id: ${id}`);
       gallery_item.appendChild(image);
 
       // * author
@@ -24,7 +24,7 @@ fetch("https://picsum.photos/v2/list")
 
       // * button
       let see_more = document.createElement("button");
-      see_more.textContent = "see more";
+      see_more.textContent = "See more";
 
       see_more.addEventListener("click", () => {
         window.open(info);
